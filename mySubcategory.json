@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "subCategoryName": "Place",
+    "category": "Nature",
+    "img": "http://res.cloudinary.com/dwwf3vdpl/image/upload/v1690374713/ypsd3ddqu592hxeid2jv.jpg",
+    "status": "active"
+  },
+  {
+    "id": 2,
+    "subCategoryName": "Lion",
+    "category": "Animals",
+    "img": "http://res.cloudinary.com/dwwf3vdpl/image/upload/v1690429211/zrsa7kp3teokpiioafrz.jpg",
+    "status": "inactive"
+  }
+]

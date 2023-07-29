@@ -1,0 +1,5 @@
+[
+  { "id": 1, "colorName": "Black", "img": "#000000", "status": "active" },
+  { "id": 2, "colorName": "Red", "img": "#f51313", "status": "inactive" },
+  { "id": 3, "colorName": "Pink", "img": "#f211d5", "status": "Active" }
+]
