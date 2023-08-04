@@ -98,7 +98,7 @@ exports.forgotPassword = (req, res) => {
       }
       connection.query('SELECT * FROM users WHERE email = ?', [email], (error, user) => {
         if (user.length) {
-          token = jwt.sign(user[0].email, process.env.SECRETKEY);
+          token = jwt.sign(user[0].email, 'secreteKey');
           const sent = sendResetPasswordMail(user[0].email, token);
 
           if (sent != '0') {
