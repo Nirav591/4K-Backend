@@ -1,7 +1,5 @@
 const express = require('express');
-// require('dotenv').config();
 const app = express();
-
 
 const wallPaperRoute = require('./sqlRoutes/Wallpaper.route');
 const categoriesRoute = require('./sqlRoutes/Category.route');
@@ -14,12 +12,14 @@ const cors = require('cors');
 
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: 'http://localhost:3001',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+    allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );
 app.use(express.json());
-
-
 
 app.use('/auth', authRoute.router);
 app.use('/category', categoriesRoute.router);

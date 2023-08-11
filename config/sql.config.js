@@ -4,5 +4,5 @@ exports.connection = mysql.createPool({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'wallpaper',
+  database: 'wallpaperone',
 });

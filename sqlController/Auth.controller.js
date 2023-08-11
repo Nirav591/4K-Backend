@@ -10,9 +10,13 @@ exports.createUser = (req, res) => {
     try {
       const hash = await bcrypt.hash(req.body.password, 10);
       const user = { ...req.body, password: hash };
-      connection.query('INSERT INTO users SET ?', user, () => {
+      connection.query('INSERT INTO users SET ?', user, (err, result) => {
         connection.release();
-        res.status(200).json(user);
+        if (result) {
+          res.status(200).json(user);
+        } else {
+          res.status(400).json({ error: err });
+        }
       });
     } catch (err) {
       res.status(400).json({
@@ -33,6 +37,7 @@ exports.loginUser = (req, res) => {
       connection.query('SELECT * FROM users WHERE email = ?', [email], (error, user) => {
         connection.release();
         if (user.length) {
+          const token = jwt.sign({ id: user[0].id }, 'secretKey');
           bcrypt.compare(req.body.password, user[0].password).then(function (result) {
             result
               ? res.status(200).json({
@@ -41,6 +46,7 @@ exports.loginUser = (req, res) => {
                   email: user[0].email,
                   name: user[0].name,
                   role: user[0].role,
+                  token: token,
                 })
               : res.status(400).json({ message: 'invalid credentials' });
           });
@@ -65,8 +71,8 @@ const sendResetPasswordMail = async (email, token) => {
     host: 'smtp.ethereal.email',
     port: 587,
     auth: {
-        user: 'dennis36@ethereal.email',
-        pass: '3tswdAMD4jPjw533QG'
+      user: 'dennis36@ethereal.email',
+      pass: '3tswdAMD4jPjw533QG',
     },
   });
   const mailOption = {
@@ -98,7 +104,7 @@ exports.forgotPassword = (req, res) => {
       }
       connection.query('SELECT * FROM users WHERE email = ?', [email], (error, user) => {
         if (user.length) {
-          token = jwt.sign(user[0].email, 'secreteKey');
+          token = jwt.sign(user[0].email, 'secretKey');
           const sent = sendResetPasswordMail(user[0].email, token);
 
           if (sent != '0') {
