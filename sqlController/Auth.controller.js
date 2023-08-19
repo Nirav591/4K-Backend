@@ -33,6 +33,7 @@ exports.loginUser = (req, res) => {
       connection.query('SELECT * FROM users WHERE email = ?', [email], (error, user) => {
         connection.release();
         if (user.length) {
+          const token = jwt.sign({ id: user[0].id }, 'secretKey');
           bcrypt.compare(req.body.password, user[0].password).then(function (result) {
             result
               ? res.status(200).json({
@@ -41,6 +42,7 @@ exports.loginUser = (req, res) => {
                   email: user[0].email,
                   name: user[0].name,
                   role: user[0].role,
+                  token: token,
                 })
               : res.status(400).json({ message: 'invalid credentials' });
           });
@@ -65,8 +67,8 @@ const sendResetPasswordMail = async (email, token) => {
     host: 'smtp.ethereal.email',
     port: 587,
     auth: {
-        user: 'dennis36@ethereal.email',
-        pass: '3tswdAMD4jPjw533QG'
+      user: 'dennis36@ethereal.email',
+      pass: '3tswdAMD4jPjw533QG',
     },
   });
   const mailOption = {
