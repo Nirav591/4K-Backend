@@ -2,7 +2,6 @@ const express = require('express');
 // require('dotenv').config();
 const app = express();
 
-
 const wallPaperRoute = require('./sqlRoutes/Wallpaper.route');
 const categoriesRoute = require('./sqlRoutes/Category.route');
 const subCategoriesRoute = require('./sqlRoutes/SubCategory.route');
@@ -19,8 +18,6 @@ app.use(
 );
 app.use(express.json());
 
-
-
 app.use('/auth', authRoute.router);
 app.use('/category', categoriesRoute.router);
 app.use('/subcategory', subCategoriesRoute.router);
@@ -28,6 +25,6 @@ app.use('/wallpaper', wallPaperRoute.router);
 app.use('/color', colorRoute.router);
 app.use('/user', userRoute.router);
 
-app.listen(3000, () => {
-  console.log(`Server is running on port 3000`);
+app.listen(4000, () => {
+  console.log(`Server is running on port 4000`);
 });
