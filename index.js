@@ -25,6 +25,6 @@ app.use('/wallpaper', wallPaperRoute.router);
 app.use('/color', colorRoute.router);
 app.use('/user', userRoute.router);
 
-app.listen(4000, () => {
-  console.log(`Server is running on port 4000`);
+app.listen(3000, () => {
+  console.log(`Server is running on port 3000`);
 });
