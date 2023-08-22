@@ -71,43 +71,10 @@ exports.filterWallpapers = async (req, res) => {
     } catch (err) {
       res.status(400).json(err);
     } finally {
-      connection.release(); // Always release the connection when done
+      connection.release();
     }
   });
 };
-
-// exports.filterWallpapers = async (req, res) => {
-//   console.log('filterData', hello);
-//   connection.getConnection(async (err, connection) => {
-//     if (err) throw err;
-//     try {
-//       let query = 'SELECT * FROM wallpaper WHERE 1';
-//       if (req.query.category) {
-//         query += ` AND category LIKE '%${req.query.category}%'`;
-//       }
-//       if (req.query.wallpaperColor) {
-//         query += ` AND wallpaperColor LIKE '%${req.query.wallpaperColor}%'`;
-//       }
-//       if (req.query.type) {
-//         query += ` AND type LIKE '%${req.query.type}%'`;
-//       }
-//       // connection.query('SELECT * from wallpaper WHERE id = ?', [req.params.id], (err, result) => {
-//       //   connection.release();
-//       //   if (!err) {
-//       //     console.log('by Id', result);
-//       //     res.send(result);
-//       //   } else {
-//       //     res.send(err);
-//       //   }
-//       // });
-//       const result = await connection.query(query);
-//       console.log('result', result);
-//       res.status(200).json(result);
-//     } catch (err) {
-//       res.status(400).json(err);
-//     }
-//   });
-// };
 
 exports.createWallpaper = async (req, res) => {
   const wallpaper = req.body.wallpaper ? JSON.parse(req.body.wallpaper) : {};

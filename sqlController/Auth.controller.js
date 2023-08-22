@@ -36,8 +36,10 @@ exports.loginUser = (req, res) => {
       const email = req.body.email;
       connection.query('SELECT * FROM users WHERE email = ?', [email], (error, user) => {
         connection.release();
+        console.log(user.length);
         if (user.length) {
           const token = jwt.sign({ id: user[0].id }, 'secretKey');
+          console.log(token, 'token');
           bcrypt.compare(req.body.password, user[0].password).then(function (result) {
             result
               ? res.status(200).json({
